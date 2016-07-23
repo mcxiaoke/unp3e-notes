@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
 		socklen_t client_size = sizeof(client);
 		connfd = accept(listenfd, (struct sockaddr *)&client, &client_size);
 		inet_ntop(AF_INET, &client.sin_addr, client_addr, INET_ADDRSTRLEN);
-		printf("connection from %s\n", client_addr);
+		printf("connection from %s:%d\n", client_addr, ntohs(client.sin_port));
 		ticks = time(NULL);
 		snprintf(buf, sizeof(buf),"Now: %.24s\r\n", ctime(&ticks));
 		write(connfd, buf, strlen(buf));
