@@ -31,7 +31,6 @@ int main(int argc, char *argv[]) {
 	getsockname(listenfd, (struct sockaddr *)&local, &len);
 	printf("bind and listen on ");
 	print_addr(&local);
-	
 	if (listen(listenfd, LISTENQ) < 0){
 		err_sys("listen socket error");
 	}
