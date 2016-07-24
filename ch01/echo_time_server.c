@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
 	memset(&servaddr, 0, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
-	servaddr.sin_port = htons(13); // ntp port
+	servaddr.sin_port = htons(9999); // ntp port
 	bind(listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
 	listen(listenfd, LISTENQ);
 	struct sockaddr_in client;

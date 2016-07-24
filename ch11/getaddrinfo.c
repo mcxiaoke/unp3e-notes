@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <unp.h>
+#include "sockaddr.h"
+
 
 int main(int argc, char *argv[]) {
 	const char* hostname = argv[1];
@@ -20,25 +22,9 @@ int main(int argc, char *argv[]) {
 	int i = 0;
 	short p = 0;
 	for (tres = res; tres != NULL; tres = tres->ai_next) {
-		switch (tres->ai_family) {
-			case AF_INET:
-				addr = (struct sockaddr_in *) tres->ai_addr;
-				p = ntohs(addr->sin_port);
-				inet_ntop(AF_INET, &addr->sin_addr, 
-					buf, INET_ADDRSTRLEN);
-				printf("%s\n", buf);
-				break;
-			case AF_INET6:
-				addr6 = (struct sockaddr_in6 *) tres->ai_addr;
-				p = ntohs(addr6->sin6_port);
-				inet_ntop(AF_INET6, &addr6->sin6_addr, 
-					buf, INET6_ADDRSTRLEN);
-				printf("%s\n", buf);
-				break;
-			default:
-				printf("unknown family: %d", tres->ai_family);
-				break;
-		}
+		char* ip = sockaddr_ntop(tres->ai_addr);
+		printf("%s\n", ip);
+		free(ip);
 	}
 	freeaddrinfo(res);
 	return 0;
